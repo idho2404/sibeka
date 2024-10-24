@@ -8,6 +8,7 @@ import { ProfileModule } from './profile/profile.module';
 import { RoleModule } from './user/role/role.module';
 import { UserModule } from './user/user/user.module';
 import { ScheduleModule } from './jadwal/jadwal.module';
+import { PengajuanModule } from './pengajuan/pengajuan.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ScheduleModule } from './jadwal/jadwal.module';
     RoleModule,
     UserModule,
     ScheduleModule,
+    PengajuanModule,
   ],
   controllers: [AppController],
   providers: [AppService],
