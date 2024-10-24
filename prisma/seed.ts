@@ -4,8 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Insert roles
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const konseliRole = await prisma.role.upsert({
+  await prisma.role.upsert({
     where: { name: 'konseli' },
     update: {},
     create: {
@@ -13,8 +12,7 @@ async function main() {
     },
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const konselorRole = await prisma.role.upsert({
+  await prisma.role.upsert({
     where: { name: 'konselor' },
     update: {},
     create: {
@@ -22,8 +20,7 @@ async function main() {
     },
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const timRole = await prisma.role.upsert({
+  await prisma.role.upsert({
     where: { name: 'tim konseling' },
     update: {},
     create: {
@@ -31,14 +28,34 @@ async function main() {
     },
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const pimpinanRole = await prisma.role.upsert({
+  await prisma.role.upsert({
     where: { name: 'pimpinan' },
     update: {},
     create: {
       name: 'pimpinan',
     },
   });
+
+  // Insert jam slots
+  const jamList = [
+    { waktu: '09:00-10:00' },
+    { waktu: '10:00-11:00' },
+    { waktu: '11:00-12:00' },
+    { waktu: '13:00-14:00' },
+    { waktu: '14:00-15:00' },
+  ];
+
+  for (const jam of jamList) {
+    await prisma.jam.upsert({
+      where: { waktu: jam.waktu },
+      update: {}, // Jika sudah ada, tidak perlu mengubah apa-apa
+      create: {
+        waktu: jam.waktu,
+      },
+    });
+  }
+
+  console.log('Seeder selesai dijalankan untuk role dan jam!');
 }
 
 main()

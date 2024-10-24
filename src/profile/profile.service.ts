@@ -30,7 +30,20 @@ export class ProfileService {
   async getKonselor(userId: string) {
     const konselor = await this.prisma.konselor.findUnique({
       where: { userId },
+      include: {
+        jadwal: {
+          include: {
+            hari: true, // Mendapatkan informasi hari (misalnya: "Senin", "Selasa", dsb)
+            jadwalJam: {
+              include: {
+                jam: true, // Mendapatkan informasi slot waktu (misalnya: "09:00-10:00")
+              },
+            },
+          },
+        },
+      },
     });
+
     if (!konselor) throw new NotFoundException('Konselor not found');
     return konselor;
   }
